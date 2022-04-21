@@ -2,12 +2,15 @@ package fr.ktheo.back.model;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "artwork")
@@ -45,6 +48,11 @@ public class Artwork {
     @JoinColumn(name = "category_id")
     private Category            category;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "artwork_tag",
+            joinColumns = @JoinColumn(name = "artwork_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag>           tags;
 
 
     /*
