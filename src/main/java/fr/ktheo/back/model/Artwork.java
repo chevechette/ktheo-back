@@ -1,21 +1,18 @@
 package fr.ktheo.back.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "artwork")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Artwork {
@@ -23,24 +20,18 @@ public class Artwork {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long                id;
 
-    @NotBlank
-    @Size(max = 256)
+    @Size(min = 1)
     private String              title;
 
-    @NotBlank
-    @Size(max = 256)
     private String              creator;
 
-    @Size(max = 1024)
-    private String              desc;
+    private String              description;
 
-    @Column(name = "creation_location")
-    @Size(max = 80)
+    @Column(name = "creation_location", length = 80)
     private String              creationLocation;
 
     @Column(name = "is_restricted")
-    @ColumnDefault(false)
-    private boolean             isRestricted;
+    private boolean             isRestricted = false;
 
     @Column(name = "estimated_price")
     private String              estimatedPrice;
@@ -50,8 +41,14 @@ public class Artwork {
     @Generated(GenerationTime.INSERT)
     private LocalDateTime       createdOn;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category            category;
+
+
+
     /*
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User                user;
      */
