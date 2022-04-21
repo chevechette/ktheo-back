@@ -38,6 +38,7 @@ public class Artwork {
     @Size(max = 80)
     private String              creationLocation;
 
+    @Column(name = "is_restricted")
     @ColumnDefault(false)
     private boolean             isRestricted;
 
