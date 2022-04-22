@@ -1,0 +1,9 @@
+package fr.ktheo.back.repository;
+
+import fr.ktheo.back.model.Profil;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ProfilRepository extends CrudRepository<Profil,Long> {
+}

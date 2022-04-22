@@ -28,7 +28,7 @@ public class UserData {
     private Date lastSeen;
 
     private String facebookLink;
-    private String twitterLiink;
+    private String twitterLink;
     private String instagramLink;
 
     @NonNull

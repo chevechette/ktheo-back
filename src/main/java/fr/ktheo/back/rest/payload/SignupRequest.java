@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class SignupRequest {
 
     @NotBlank
