@@ -4,15 +4,9 @@ import fr.ktheo.back.model.*;
 import fr.ktheo.back.repository.ProfilRepository;
 import fr.ktheo.back.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
-import java.security.Principal;
+
 
 @Service
 public class ProfilService {
@@ -25,8 +19,6 @@ public class ProfilService {
 
     @Transactional
     public Profil newProfile(String avatar, String description, String language, int views,User user) {
-
-
         Profil profil = new Profil(avatar,description,language,views,user);
         profilRepository.save(profil);
        return profil;

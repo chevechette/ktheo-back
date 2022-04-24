@@ -20,7 +20,6 @@ public class NewProfilRequest {
 
     private int views;
 
-    @NonNull
-    @ManyToOne
-    private User user;
+   @NonNull
+    private Long userId;
 }
