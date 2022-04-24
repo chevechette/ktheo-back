@@ -24,12 +24,8 @@ public class ProfilService {
 
 
     @Transactional
-    public Profil newProfile(String avatar, String description, String language, int views) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof AnonymousAuthenticationToken){
-            System.out.println("AnonymousAuthentification");
-        }
-        User user = new User();
+    public Profil newProfile(String avatar, String description, String language, int views,User user) {
+
 
         Profil profil = new Profil(avatar,description,language,views,user);
         profilRepository.save(profil);

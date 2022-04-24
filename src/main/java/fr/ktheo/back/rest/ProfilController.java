@@ -1,20 +1,28 @@
 package fr.ktheo.back.rest;
 
 import fr.ktheo.back.model.Profil;
+import fr.ktheo.back.model.User;
 import fr.ktheo.back.repository.ProfilRepository;
-import fr.ktheo.back.rest.payload.MessageResponse;
-import fr.ktheo.back.rest.payload.NewProfilRequest;
+import fr.ktheo.back.model.payload.MessageResponse;
+import fr.ktheo.back.model.payload.NewProfilRequest;
 import fr.ktheo.back.service.ProfilService;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
 
 @RestController("restProfilController")
 @RequestMapping("/api/profil")
-@CrossOrigin(value = "*")
 public class ProfilController {
 
     @Autowired
@@ -32,10 +40,12 @@ public class ProfilController {
 
     @PostMapping("/new")
     public ResponseEntity<?>setNewProfil(@Valid @RequestBody NewProfilRequest dto){
-        Profil createdProfil= profilService.newProfile(dto.getAvatar(),dto.getDescription(),dto.getLanguage(),1 );
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println();
+        User user =(User)authentication.getPrincipal();
+        Profil createdProfil= profilService.newProfile(dto.getAvatar(),dto.getDescription(),dto.getLanguage(),1,user );
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new MessageResponse("Profil registered succesfully"));
     }
-
 }

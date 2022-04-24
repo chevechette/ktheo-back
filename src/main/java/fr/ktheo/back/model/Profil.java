@@ -13,6 +13,7 @@ import java.util.Optional;
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Data
 public class Profil {
 
     @Id

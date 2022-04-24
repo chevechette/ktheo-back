@@ -1,4 +1,4 @@
-package fr.ktheo.back.rest.payload;
+package fr.ktheo.back.model.payload;
 
 
 import lombok.*;

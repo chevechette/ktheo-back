@@ -2,9 +2,9 @@ package fr.ktheo.back.rest;
 
 
 import fr.ktheo.back.model.User;
-import fr.ktheo.back.rest.payload.MessageResponse;
-import fr.ktheo.back.rest.payload.SigninRequest;
-import fr.ktheo.back.rest.payload.SignupRequest;
+import fr.ktheo.back.model.payload.MessageResponse;
+import fr.ktheo.back.model.payload.SigninRequest;
+import fr.ktheo.back.model.payload.SignupRequest;
 import fr.ktheo.back.security.jwt.JwtResponse;
 import fr.ktheo.back.security.jwt.JwtUtils;
 import fr.ktheo.back.service.UserService;
@@ -51,18 +51,10 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticate(@Valid @RequestBody SigninRequest dto) {
-
-        System.out.println("password :"+dto.getPassword());
-        System.out.println("username :"+dto.getUsername());
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         String tokenJwtGenerated = jwtUtils.generateJwtToken(authentication);
-
         User user = (User) authentication.getPrincipal();
-        System.out.println(user.getUsername());
-
-
         return ResponseEntity
                 .ok(new JwtResponse(
                         user.getId(),
