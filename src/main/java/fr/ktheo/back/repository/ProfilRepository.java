@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ProfilRepository extends CrudRepository<Profil,Long> {
-    List<Profil> findAllByUserId(Long id);
+    List<Profil> findAllByUser_Id(Long id);
 }

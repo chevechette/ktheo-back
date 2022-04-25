@@ -1,7 +1,9 @@
 package fr.ktheo.back.rest;
 
+import fr.ktheo.back.model.UserData;
 import fr.ktheo.back.repository.UserDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,12 @@ public class UserDataController {
         return ResponseEntity
                 .ok()
                 .body(userDataRepository.findById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity <?> updateUserData(@RequestBody UserData userData){
+        userDataRepository.save(userData);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
 

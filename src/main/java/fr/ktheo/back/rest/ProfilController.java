@@ -11,6 +11,7 @@ import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,12 +35,18 @@ public class ProfilController {
     @Autowired
     UserRepository userRepository;
 
+
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity <?> getAllProfils(){
+        return ResponseEntity.ok().body(profilRepository.findAll());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getProfilByUserId(@PathVariable("id")Long id){
 
         return ResponseEntity
                 .ok()
-                .body(profilRepository.findAllByUserId(id));
+                .body(profilRepository.findAllByUser_Id(id));
     }
 
     @PostMapping("/new")
