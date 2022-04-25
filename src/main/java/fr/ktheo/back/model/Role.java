@@ -4,6 +4,7 @@ package fr.ktheo.back.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,5 +21,6 @@ public class Role {
     @Enumerated(EnumType.STRING)
     @NonNull
     private RoleEnum name;
+
 
 }

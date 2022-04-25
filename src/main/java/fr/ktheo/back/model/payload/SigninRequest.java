@@ -1,18 +1,18 @@
-package fr.ktheo.back.rest.payload;
+package fr.ktheo.back.model.payload;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import lombok.*;
-
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
-public class SignupRequest {
+@Getter
+@Setter
+public class SigninRequest {
 
     @NotBlank
     @Size(min = 3)
@@ -21,10 +21,4 @@ public class SignupRequest {
     @NotBlank
     @Size(min = 6)
     private String password;
-
-    @Email
-    @NotBlank
-    private String mail;
-
-
 }
