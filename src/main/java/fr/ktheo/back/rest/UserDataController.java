@@ -39,7 +39,7 @@ public class UserDataController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?>deleteUserData(@PathVariable long id){
         userDataRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();

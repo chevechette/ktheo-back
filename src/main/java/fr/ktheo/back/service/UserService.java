@@ -37,7 +37,9 @@ public class UserService {
 
     @Transactional
     public User signup(String username,String mail, String password) {
+
         Role roleUser = roleRepository.findByName(RoleEnum.ROLE_CUSTOMER);
+        System.out.println("roleUser : "+roleUser);
         List<Role> roleList = Arrays.asList(roleUser);
         Date today = new Date();
         UserData userData = new UserData(today,today,false);

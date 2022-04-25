@@ -26,7 +26,7 @@ public class Address {
     private String streetName;
     @NonNull
     private int postalCode;
-
+    @NonNull
     @ManyToOne
     private User user;
 

@@ -22,7 +22,5 @@ public class Role {
     @NonNull
     private RoleEnum name;
 
-    @ManyToMany(mappedBy = "roleList")
-    private List<User>users;
 
 }
