@@ -1,7 +1,8 @@
 package fr.ktheo.back;
 
-import fr.ktheo.back.model.Role;
-import fr.ktheo.back.model.RoleEnum;
+import fr.ktheo.back.model.*;
+import fr.ktheo.back.repository.AuctionStatusRepository;
+import fr.ktheo.back.repository.CategoryRepository;
 import fr.ktheo.back.repository.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,10 +21,12 @@ public class BackApplication {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(RoleRepository roleRepository){
+    CommandLineRunner commandLineRunnerRole(RoleRepository roleRepository){
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
+                if (roleRepository.count() != 0)
+                    return;
                 Role role1= new Role(RoleEnum.ROLE_CUSTOMER);
                 Role role2 = new Role(RoleEnum.ROLE_ADMIN);
                 Role role3 = new Role(RoleEnum.ROLE_ARTIST);
@@ -31,6 +34,45 @@ public class BackApplication {
                 Role role5 = new Role(RoleEnum.ROLE_MODERATOR);
                 List<Role> roleList = Arrays.asList(role1,role2,role3,role4,role5);
                 roleRepository.saveAll(roleList);
+            }
+        };
+    }
+
+    @Bean
+    CommandLineRunner commandLineRunnerCategory(CategoryRepository categoryRepository) {
+        return new CommandLineRunner() {
+            @Override
+            public void run(String... args) throws Exception {
+                if (categoryRepository.count() != 0)
+                    return;
+                List<Category>  catList;
+
+                Category painting = new Category(ECategory.CAT_PAINTING);
+                Category nft = new Category(ECategory.CAT_VIRTUAL);
+                Category statue = new Category(ECategory.CAT_SCULPTURE);
+                catList = Arrays.asList(painting, nft, statue);
+                categoryRepository.saveAll(catList);
+            }
+        };
+    }
+
+    @Bean
+    CommandLineRunner commandLineRunnerAuctionStatus(AuctionStatusRepository auctionStatusRepository) {
+        return new CommandLineRunner() {
+            @Override
+            public void run(String... args) throws Exception {
+                if (auctionStatusRepository.count() != 0)
+                    return;
+                List<AuctionStatus>  statusList;
+
+                AuctionStatus open = new AuctionStatus(EAuctionStatus.AUCTION_OPEN);
+
+                AuctionStatus closed = new AuctionStatus(EAuctionStatus.AUCTION_OPEN);
+                AuctionStatus pending = new AuctionStatus(EAuctionStatus.AUCTION_OPEN);
+                AuctionStatus future = new AuctionStatus(EAuctionStatus.AUCTION_OPEN);
+                AuctionStatus cancelled = new AuctionStatus(EAuctionStatus.AUCTION_OPEN);
+                statusList = Arrays.asList(open, closed, pending, future, cancelled);
+                auctionStatusRepository.saveAll(statusList);
             }
         };
     }

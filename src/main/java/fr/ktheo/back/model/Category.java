@@ -27,6 +27,7 @@ public class Role {
 @Table(name = "category")
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 public class Category {
