@@ -37,4 +37,7 @@ public class UserData {
     @NonNull
     private boolean tutorialized;
 
+    @OneToOne(mappedBy = "userData")
+    private User user;
+
 }

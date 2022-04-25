@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController("AuthController")
 @RequestMapping("/api/auth")
@@ -55,11 +57,13 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String tokenJwtGenerated = jwtUtils.generateJwtToken(authentication);
         User user = (User) authentication.getPrincipal();
+        List<String>roles = user.getAuthorities().stream().map(item->item.getAuthority()).collect(Collectors.toList());
         return ResponseEntity
                 .ok(new JwtResponse(
                         user.getId(),
                         user.getUsername(),
-                        tokenJwtGenerated
+                        tokenJwtGenerated,
+                        roles
                 ));
     }
 

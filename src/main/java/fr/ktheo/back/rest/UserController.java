@@ -1,14 +1,18 @@
 package fr.ktheo.back.rest;
 
+import fr.ktheo.back.model.Address;
 import fr.ktheo.back.model.User;
 import fr.ktheo.back.repository.ProfilRepository;
 import fr.ktheo.back.repository.UserDataRepository;
 import fr.ktheo.back.repository.UserRepository;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController("restUserController")
 @RequestMapping("/api/user")
@@ -37,7 +41,6 @@ public class UserController {
     public ResponseEntity<?> getAllProfilesFromUser(@PathVariable long id){
         return ResponseEntity.ok().body(profilRepository.findAllByUser_Id(id));
     }
-
     @GetMapping("/{id}/userdata")
     public ResponseEntity<?> getUserDataFromUser(@PathVariable long id){
         User user = userRepository.findById(id).orElseThrow();

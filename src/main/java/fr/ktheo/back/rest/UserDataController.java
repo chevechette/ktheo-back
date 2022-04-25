@@ -1,7 +1,9 @@
 package fr.ktheo.back.rest;
 
+import fr.ktheo.back.model.User;
 import fr.ktheo.back.model.UserData;
 import fr.ktheo.back.repository.UserDataRepository;
+import fr.ktheo.back.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,10 @@ public class UserDataController {
     UserDataRepository userDataRepository;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserDataById(@PathVariable("id") Long id){
@@ -33,6 +38,14 @@ public class UserDataController {
         userDataRepository.save(userData);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
+
+    @DeleteMapping("{/id}")
+    public ResponseEntity<?>deleteUserData(@PathVariable long id){
+        userDataRepository.deleteById(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+
+
 
 
 }
