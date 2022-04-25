@@ -1,5 +1,6 @@
 package fr.ktheo.back.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,32 +11,30 @@ import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name = "asset")
-@NoArgsConstructor
+@Table(name = "bid")
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-public class Asset {
+public class Bid {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long            id;
+    private Long                id;
 
-    @Column(unique=true)
-    private String          path;
+    @ManyToOne
+    private User                bidder;
 
-    @Column(name = "uploaded_on")
+    private double              bidAmount;
+
+    private String              currency;
+
+    @Column(name = "datetime")
     @ColumnDefault(value="CURRENT_TIMESTAMP")
     @Generated(GenerationTime.INSERT)
-    private LocalDateTime   uploadedOn;
+    private LocalDateTime       datetime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uploader_id")
-    private User            uploader;
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "photos")
-    private Set<Artwork>    artworks;
+    @ManyToOne
+    private Auction             auction;
 }
