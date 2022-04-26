@@ -1,6 +1,7 @@
 package fr.ktheo.back.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
+@JsonIdentityReference(alwaysAsId = true)
 public class User implements UserDetails {
 
     @Id
@@ -80,6 +82,12 @@ public class User implements UserDetails {
     @NonNull
     @OneToOne(cascade = CascadeType.ALL)
     private UserData userData;
+
+    public static User fromId(Long ownerId) {
+        User user = new User();
+        user.setId(ownerId);
+        return user;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
