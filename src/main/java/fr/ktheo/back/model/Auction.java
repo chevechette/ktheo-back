@@ -38,6 +38,8 @@ public class Auction {
     @ManyToOne
     private AuctionStatus       status;
 
-    @OneToMany
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Bid>           bids;
 }

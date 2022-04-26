@@ -67,6 +67,8 @@ public class BidController {
         bid = dto.toEntity();
         bid.setBidder(usr);
         bid.setAuction(auction);
+        bid.getAuction().getBids().add(bid);
+        bid.getAuction().getSeller().getBids().add(bid);
         bidRepository.save(bid);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
