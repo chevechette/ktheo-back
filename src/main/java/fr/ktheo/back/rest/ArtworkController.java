@@ -50,6 +50,7 @@ public class ArtworkController {
         usr = userRepository.findById(dto.getOwner()).orElseThrow(()->new EntityNotFoundException("id not found :"+dto.getOwner()));
         wrk = dto.toEntity();
         wrk.setOwner(usr);
+        wrk.getOwner().getArtworks().add(wrk);
         artworkRepository.save(wrk);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
