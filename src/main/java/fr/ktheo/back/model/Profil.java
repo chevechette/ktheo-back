@@ -1,7 +1,7 @@
 package fr.ktheo.back.model;
+
 import lombok.*;
 import javax.persistence.*;
-
 
 @Entity
 @Getter
@@ -29,6 +29,4 @@ public class Profil {
     @NonNull
     @ManyToOne
     private User user;
-
-
 }

@@ -10,32 +10,26 @@ import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name = "asset")
+@Table(name = "comment")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Asset {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long            id;
 
-    @Column(unique=true)
-    private String          path;
-
-    @Column(name = "uploaded_on")
-    @ColumnDefault(value="CURRENT_TIMESTAMP")
-    @Generated(GenerationTime.INSERT)
-    private LocalDateTime   uploadedOn;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User            author;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uploader_id")
-    private User            uploader;
+    private Artwork         topic;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "photos")
-    private Set<Artwork>    artworks;
+    @Column(name = "created_on")
+    @ColumnDefault(value="CURRENT_TIMESTAMP")
+    @Generated(GenerationTime.INSERT)
+    private LocalDateTime   postedOn;
 }
