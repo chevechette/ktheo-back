@@ -30,6 +30,9 @@ public class Auction {
 
     private LocalDateTime       endsOn;
 
+    @ManyToOne
+    private AuctionStatus       status;
+
     @OneToMany
     private List<Bid>           bids;
 }
