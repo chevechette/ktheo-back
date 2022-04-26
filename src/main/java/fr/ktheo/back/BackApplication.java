@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,17 +21,18 @@ public class BackApplication {
     }
 
     @Bean
+    @Transactional
     CommandLineRunner commandLineRunner(RoleRepository roleRepository){
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
-                Role role1= new Role(RoleEnum.ROLE_CUSTOMER);
-                Role role2 = new Role(RoleEnum.ROLE_ADMIN);
-                Role role3 = new Role(RoleEnum.ROLE_ARTIST);
-                Role role4 = new Role(RoleEnum.ROLE_GALERY);
-                Role role5 = new Role(RoleEnum.ROLE_MODERATOR);
-                List<Role> roleList = Arrays.asList(role1,role2,role3,role4,role5);
-                roleRepository.saveAll(roleList);
+//                Role role1= new Role(RoleEnum.ROLE_CUSTOMER);
+//                Role role2 = new Role(RoleEnum.ROLE_ADMIN);
+//                Role role3 = new Role(RoleEnum.ROLE_ARTIST);
+//                Role role4 = new Role(RoleEnum.ROLE_GALERY);
+//                Role role5 = new Role(RoleEnum.ROLE_MODERATOR);
+//                List<Role> roleList = Arrays.asList(role1,role2,role3,role4,role5);
+//                roleRepository.saveAll(roleList);
             }
         };
     }

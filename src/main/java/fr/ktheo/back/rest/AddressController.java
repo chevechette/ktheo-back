@@ -2,10 +2,12 @@ package fr.ktheo.back.rest;
 
 import fr.ktheo.back.model.Address;
 import fr.ktheo.back.model.User;
+import fr.ktheo.back.model.payload.AddressModify;
 import fr.ktheo.back.model.payload.MessageResponse;
 import fr.ktheo.back.model.payload.newAddressRequest;
 import fr.ktheo.back.repository.AddressRepository;
 import fr.ktheo.back.repository.UserRepository;
+import fr.ktheo.back.service.AddressService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,15 +16,19 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(value = "*")
 public class AddressController {
 
     @Autowired
     UserRepository userRepository;
     @Autowired
     AddressRepository addressRepository;
+    @Autowired
+    AddressService addressService;
 
 
     @PostMapping("/address/new")
@@ -33,15 +39,15 @@ public class AddressController {
                 .status(HttpStatus.CREATED)
                 .body(new MessageResponse("Address registered succesfully"));
     }
-    @PutMapping("/{id}")
-    public ResponseEntity <?> updateAddress(@RequestBody Address address){
-        addressRepository.save(address);
+    @PutMapping("/address")
+    public ResponseEntity <?> updateAddress(@RequestBody AddressModify address){
+        addressService.updateAddress(address);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
     @GetMapping("/{id}/addresses")
     public ResponseEntity<?> getAddressesFromUser(@PathVariable long id){
-        User user = userRepository.findById(id).orElseThrow();
-        return ResponseEntity.ok().body(user.getAddresses());
+        List<Address> addresses = addressRepository.findAllByUser_Id(id).orElseThrow(()->new EntityNotFoundException("addresses not found :"));
+        return ResponseEntity.ok().body(addresses);
     }
     @GetMapping("/address/{id}")
     public ResponseEntity<?>getOneAddress(@PathVariable long id){

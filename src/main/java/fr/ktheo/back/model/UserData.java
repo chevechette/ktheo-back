@@ -22,9 +22,11 @@ public class UserData {
     private String locale;
 
     @Past(message = "La date doit être antérieur à la date actuelle")
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
 
     @NonNull
+    @Temporal(TemporalType.DATE)
     private Date creationDate;
 
     @NonNull

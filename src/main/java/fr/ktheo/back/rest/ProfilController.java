@@ -26,6 +26,7 @@ import java.util.Collection;
 
 @RestController("restProfilController")
 @RequestMapping("/api/profil")
+@CrossOrigin(value = "*")
 public class ProfilController {
 
     @Autowired

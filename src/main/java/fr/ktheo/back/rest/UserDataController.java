@@ -33,8 +33,10 @@ public class UserDataController {
                 .body(userDataRepository.findById(id));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity <?> updateUserData(@RequestBody UserData userData){
+        System.out.println("DANS LE PUTMAPPING");
+        System.out.println(userData.getTwitterLink());
         userDataRepository.save(userData);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
@@ -44,8 +46,4 @@ public class UserDataController {
         userDataRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
-
-
-
-
 }

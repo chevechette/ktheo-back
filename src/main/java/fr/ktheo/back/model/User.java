@@ -52,8 +52,6 @@ public class User implements UserDetails {
     )
     private List<Role> roleList;
 
-    @OneToMany(mappedBy = "user")
-    private List<Address>addresses;
 
 
     @NonNull
