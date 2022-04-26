@@ -59,8 +59,10 @@ public class WebSecurityConfig {
                     .and()
                     .authorizeRequests()
                     .antMatchers("/api/auth/**").permitAll()
-                    .antMatchers("/api/userdata/**").authenticated()
+                    .antMatchers("/api/userdata/**").permitAll()
                     .antMatchers("/api/profil/**").permitAll()
+                    .antMatchers("/api/user/**").permitAll()
+                    .antMatchers("/api/{id}/**").permitAll()
                     .antMatchers("/api/artwork/**").permitAll()
                     .antMatchers("/api/report/**").permitAll()
                     .antMatchers("/api/bid/**").permitAll()
@@ -72,7 +74,7 @@ public class WebSecurityConfig {
                     .antMatchers("/api/status/**").permitAll()
                     .antMatchers("/api/category/**").permitAll()
                     .antMatchers("/api/comment/**").permitAll()
-                    .antMatchers("/api/user/**").authenticated()
+                    //.antMatchers("/api/user/**").authenticated()
                     .anyRequest().authenticated();
             http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         }
