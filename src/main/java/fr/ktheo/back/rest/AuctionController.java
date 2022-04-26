@@ -20,6 +20,7 @@ import javax.validation.Valid;
 
 @RestController("AuctionController")
 @RequestMapping("/api/auction")
+@CrossOrigin(value = "*")
 public class AuctionController {
     @Autowired
     UserRepository userRepository;

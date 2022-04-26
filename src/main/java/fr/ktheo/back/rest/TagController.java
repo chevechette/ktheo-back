@@ -15,6 +15,7 @@ import javax.validation.Valid;
 
 @RestController("TagController")
 @RequestMapping("/api/tag")
+@CrossOrigin(value = "*")
 public class TagController {
 
     @Autowired

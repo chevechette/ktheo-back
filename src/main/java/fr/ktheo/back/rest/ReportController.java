@@ -15,6 +15,7 @@ import javax.validation.Valid;
 
 @RestController("ReportController")
 @RequestMapping("/api/report")
+@CrossOrigin(value = "*")
 public class ReportController {
 
     @Autowired

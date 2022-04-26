@@ -17,6 +17,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(value = "*")
 public class AddressController {
 
     @Autowired

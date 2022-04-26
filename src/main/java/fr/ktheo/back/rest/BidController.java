@@ -21,6 +21,7 @@ import javax.validation.Valid;
 
 @RestController("BidController")
 @RequestMapping("/api/bid")
+@CrossOrigin(value = "*")
 public class BidController {
     @Autowired
     UserRepository userRepository;

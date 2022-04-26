@@ -67,10 +67,10 @@ public class BackApplication {
 
                 AuctionStatus open = new AuctionStatus(EAuctionStatus.AUCTION_OPEN);
 
-                AuctionStatus closed = new AuctionStatus(EAuctionStatus.AUCTION_OPEN);
-                AuctionStatus pending = new AuctionStatus(EAuctionStatus.AUCTION_OPEN);
-                AuctionStatus future = new AuctionStatus(EAuctionStatus.AUCTION_OPEN);
-                AuctionStatus cancelled = new AuctionStatus(EAuctionStatus.AUCTION_OPEN);
+                AuctionStatus closed = new AuctionStatus(EAuctionStatus.AUCTION_CLOSED);
+                AuctionStatus pending = new AuctionStatus(EAuctionStatus.AUCTION_PENDING);
+                AuctionStatus future = new AuctionStatus(EAuctionStatus.AUCTION_FUTURE);
+                AuctionStatus cancelled = new AuctionStatus(EAuctionStatus.AUCTION_CANCELLED);
                 statusList = Arrays.asList(open, closed, pending, future, cancelled);
                 auctionStatusRepository.saveAll(statusList);
             }

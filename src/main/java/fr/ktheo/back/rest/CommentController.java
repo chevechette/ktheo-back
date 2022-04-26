@@ -20,6 +20,7 @@ import javax.validation.Valid;
 
 @RestController("CommentController")
 @RequestMapping("/api/comment/")
+@CrossOrigin(value = "*")
 public class CommentController {
 
     @Autowired

@@ -17,6 +17,7 @@ import javax.validation.Valid;
 
 @RestController("ArtworkController")
 @RequestMapping("/api/artwork")
+@CrossOrigin(value = "*")
 public class ArtworkController {
 
     @Autowired
