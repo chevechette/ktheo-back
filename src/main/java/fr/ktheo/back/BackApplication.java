@@ -4,6 +4,7 @@ import fr.ktheo.back.model.*;
 import fr.ktheo.back.repository.AuctionStatusRepository;
 import fr.ktheo.back.repository.CategoryRepository;
 import fr.ktheo.back.repository.RoleRepository;
+import fr.ktheo.back.repository.TransactionStatusRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -66,13 +67,31 @@ public class BackApplication {
                 List<AuctionStatus>  statusList;
 
                 AuctionStatus open = new AuctionStatus(EAuctionStatus.AUCTION_OPEN);
-
                 AuctionStatus closed = new AuctionStatus(EAuctionStatus.AUCTION_CLOSED);
                 AuctionStatus pending = new AuctionStatus(EAuctionStatus.AUCTION_PENDING);
                 AuctionStatus future = new AuctionStatus(EAuctionStatus.AUCTION_FUTURE);
                 AuctionStatus cancelled = new AuctionStatus(EAuctionStatus.AUCTION_CANCELLED);
                 statusList = Arrays.asList(open, closed, pending, future, cancelled);
                 auctionStatusRepository.saveAll(statusList);
+            }
+        };
+    }
+
+    @Bean
+    CommandLineRunner commandLineRunnerTransactionStatus(TransactionStatusRepository transactionStatusRepository) {
+        return new CommandLineRunner() {
+            @Override
+            public void run(String... args) throws Exception {
+                if (transactionStatusRepository.count() != 0)
+                    return;
+                List<TransactionStatus>  statusList;
+
+                TransactionStatus cancelled = new TransactionStatus(ETransactionStatus.TRANSACTION_CANCELLED);
+                TransactionStatus incomplete = new TransactionStatus(ETransactionStatus.TRANSACTION_INCOMPLETE);
+                TransactionStatus pending = new TransactionStatus(ETransactionStatus.TRANSACTION_PENDING);
+                TransactionStatus validated = new TransactionStatus(ETransactionStatus.TRANSACTION_VALIDATED);
+                statusList = Arrays.asList(cancelled, incomplete, pending, validated);
+                transactionStatusRepository.saveAll(statusList);
             }
         };
     }

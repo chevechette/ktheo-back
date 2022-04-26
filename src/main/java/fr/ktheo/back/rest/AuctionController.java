@@ -1,13 +1,12 @@
 package fr.ktheo.back.rest;
 
-import fr.ktheo.back.model.Artwork;
-import fr.ktheo.back.model.Auction;
-import fr.ktheo.back.model.User;
+import fr.ktheo.back.model.*;
 import fr.ktheo.back.model.payload.CreateArtworkRequest;
 import fr.ktheo.back.model.payload.CreateAuctionRequest;
 import fr.ktheo.back.model.payload.MessageResponse;
 import fr.ktheo.back.repository.ArtworkRepository;
 import fr.ktheo.back.repository.AuctionRepository;
+import fr.ktheo.back.repository.AuctionStatusRepository;
 import fr.ktheo.back.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +29,9 @@ public class AuctionController {
 
     @Autowired
     AuctionRepository auctionRepository;
+
+    @Autowired
+    AuctionStatusRepository auctionStatusRepository;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAllAuction() {
@@ -58,6 +60,9 @@ public class AuctionController {
         auction = dto.toEntity();
         auction.setArtwork(wrk);
         auction.setSeller(usr);
+        auction.setStatus(auctionStatusRepository
+                .findByAuctionStatus(EAuctionStatus.AUCTION_OPEN)
+                .orElseThrow(()->new EntityNotFoundException("Transaction Type not found :"+ "PENDING" )));
         auctionRepository.save(auction);
         return ResponseEntity
                 .status(HttpStatus.CREATED)

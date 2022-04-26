@@ -29,6 +29,9 @@ public class Transaction {
 
     private double          price;
 
+    @ManyToOne
+    private TransactionStatus   status;
+
     @Column(name = "bought_on")
     @ColumnDefault(value="CURRENT_TIMESTAMP")
     @org.hibernate.annotations.Generated(GenerationTime.INSERT)
