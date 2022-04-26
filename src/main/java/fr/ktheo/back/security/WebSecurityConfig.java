@@ -69,6 +69,7 @@ public class WebSecurityConfig {
                     .antMatchers("/api/comment/**").permitAll()
                     .antMatchers("/api/asset/**").permitAll()
                     .antMatchers("/api/transaction/**").permitAll()
+                    .antMatchers("/api/status/**").permitAll()
                     .antMatchers("/api/user/**").authenticated()
                     .anyRequest().authenticated();
             http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
