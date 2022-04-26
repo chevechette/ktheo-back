@@ -37,12 +37,12 @@ public class BidController {
         return ResponseEntity.ok().body(bidRepository.findAll());
     }
 
-    @GetMapping("/auction/{id}")
+    @GetMapping(value = "/auction/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?>    getAuctionAllBid(@PathVariable long id){
         Auction auction;
 
         auction = auctionRepository.findById(id).orElseThrow(()->new EntityNotFoundException("id not found :"+id));
-        return ResponseEntity.ok().body(bidRepository.findByAuction(auction));
+        return ResponseEntity.ok().body(bidRepository.findAllByAuction(auction));
     }
 
     @GetMapping("/{id}")
