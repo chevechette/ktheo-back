@@ -88,6 +88,16 @@ public class User implements UserDetails {
     @OneToMany
     private List<Comment>       comments;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(mappedBy = "owner")
+    private List<Transaction>   soldDeals;
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(mappedBy = "buyer")
+    private List<Transaction>   boughtDeals;
+
     @NonNull
     @OneToOne(cascade = CascadeType.ALL)
     private UserData userData;
