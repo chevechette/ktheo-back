@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,9 @@ public class UserController {
 
     @Autowired
     UserDataRepository userDataRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @GetMapping(value="/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAllUsers(){
@@ -48,8 +52,13 @@ public class UserController {
         return ResponseEntity.ok().body(user.getUserData());
     }
     @PutMapping("/{id}")
-    public ResponseEntity <?> upDateUser(@RequestBody User user){
+    public ResponseEntity <?> upDateUser(@RequestBody String newPassword, @PathVariable long id){
+        System.out.println("newPassword : "+newPassword);
+        System.out.println(id);
+        User user = userRepository.findById(id).orElseThrow();
+        user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
+        System.out.println("user : "+user);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
     @DeleteMapping("/{id}")

@@ -36,7 +36,7 @@ public class WebSecurityConfig {
     }
 
     @Configuration
-//    @Order(1)
+    @Order(1)
     public class ApiWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Bean
@@ -69,36 +69,36 @@ public class WebSecurityConfig {
     }
 
 
-//    @Configuration
-//    @Order(2)
-//    public class FormLoginWebSecurityConfig extends WebSecurityConfigurerAdapter {
-//
-//        @Override
-//        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//            auth
-//                    .userDetailsService(userDetailsService)
-//                    .passwordEncoder(passwordEncoder());
-//        }
-//
-//        @Override
-//        protected void configure(HttpSecurity http) throws Exception {
-//            http
-//                    .authorizeRequests()
-//                    .antMatchers("/api/**").permitAll()
-//                    .anyRequest().authenticated()
-//                    .and()
-//                    .formLogin()
-//                    .loginPage("/signin")
-//                    .usernameParameter("username")
-//                    .passwordParameter("password")
-//                    .permitAll()
-//                    .and()
-//                    .logout()
-//                    .permitAll()
-//                    .invalidateHttpSession(true).clearAuthentication(true)
-//                    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
-//
-//        }
-//    }
+    @Configuration
+    @Order(2)
+    public class FormLoginWebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth
+                    .userDetailsService(userDetailsService)
+                    .passwordEncoder(passwordEncoder());
+        }
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .authorizeRequests()
+                    .antMatchers("/api/**","/home").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                    .formLogin()
+                    .loginPage("/signin")
+                    .defaultSuccessUrl("/home")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .permitAll()
+                    .and()
+                    .logout()
+                    .permitAll()
+                    .invalidateHttpSession(true).clearAuthentication(true)
+                    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+        }
+    }
 
 }
