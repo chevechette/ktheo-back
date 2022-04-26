@@ -63,6 +63,8 @@ public class AuctionController {
         auction.setStatus(auctionStatusRepository
                 .findByAuctionStatus(EAuctionStatus.AUCTION_OPEN)
                 .orElseThrow(()->new EntityNotFoundException("Transaction Type not found :"+ "PENDING" )));
+        auction.getArtwork().setAuction(auction);
+        auction.getSeller().getAuctions().add(auction);
         auctionRepository.save(auction);
         return ResponseEntity
                 .status(HttpStatus.CREATED)

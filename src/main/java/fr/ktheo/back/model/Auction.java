@@ -23,6 +23,8 @@ public class Auction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long                id;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne
     private User                seller;
 
