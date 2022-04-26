@@ -1,6 +1,8 @@
 package fr.ktheo.back.rest;
 
 import fr.ktheo.back.model.AuctionStatus;
+import fr.ktheo.back.model.EAuctionStatus;
+import fr.ktheo.back.model.ETransactionStatus;
 import fr.ktheo.back.model.Role;
 import fr.ktheo.back.repository.AuctionStatusRepository;
 import fr.ktheo.back.repository.TransactionStatusRepository;
@@ -40,5 +42,14 @@ public class StatusController {
     public ResponseEntity<?> getAutionStatus(@PathVariable long id) {
         return ResponseEntity.ok().body(auctionStatusRepository.findById(id));
     }
-    
+
+    @GetMapping("/transaction/name/{id}")
+    public ResponseEntity<?> getTransactionStatusByName(@PathVariable String id) {
+        return ResponseEntity.ok().body(transactionStatusRepository.findByTransactionStatus(ETransactionStatus.valueOf(id)));
+    }
+
+    @GetMapping("/auction/name/{id}")
+    public ResponseEntity<?> getAuctionStatusByName(@PathVariable String id) {
+        return ResponseEntity.ok().body(auctionStatusRepository.findByAuctionStatus(EAuctionStatus.valueOf(id)));
+    }
 }
