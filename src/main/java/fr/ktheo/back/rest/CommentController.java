@@ -67,6 +67,8 @@ public class CommentController {
         comment = dto.toEntity();
         comment.setAuthor(usr);
         comment.setTopic(artwork);
+        comment.getAuthor().getComments().add(comment);
+        comment.getTopic().getComments().add(comment);
         commentRepository.save(comment);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new MessageResponse("Comment registered succesfully"));

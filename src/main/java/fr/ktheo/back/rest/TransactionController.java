@@ -69,6 +69,8 @@ public class TransactionController {
         trans.setStatus(transactionStatusRepository
                 .findByTransactionStatus(ETransactionStatus.TRANSACTION_PENDING)
                 .orElseThrow(()->new EntityNotFoundException("Transaction Type not found :"+ "PENDING" )));
+        trans.getOwner().getSoldDeals().add(trans);
+        trans.getBuyer().getBoughtDeals().add(trans);
         transactionRepository.save(trans);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
