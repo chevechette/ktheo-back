@@ -1,7 +1,9 @@
 package fr.ktheo.back.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
@@ -76,8 +78,15 @@ public class User implements UserDetails {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Auction>       auctions;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @OneToMany(fetch = FetchType.LAZY)
     private List<Bid>           bids;
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany
+    private List<Comment>       comments;
 
     @NonNull
     @OneToOne(cascade = CascadeType.ALL)

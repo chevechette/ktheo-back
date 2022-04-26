@@ -87,4 +87,9 @@ public class Artwork {
     @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne
     private Auction             auction;
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany
+    private List<Comment>       comments;
 }
