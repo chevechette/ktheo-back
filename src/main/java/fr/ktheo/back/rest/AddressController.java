@@ -31,10 +31,11 @@ public class AddressController {
     AddressService addressService;
 
 
-    @PostMapping("/address/new")
+    @PostMapping("/address")
     public ResponseEntity<?>addNewAddress(@Valid @RequestBody newAddressRequest dto){
         User user = userRepository.findById(dto.getUserId()).orElseThrow(()->new EntityNotFoundException("id not found :"+dto.getUserId()));
         Address address = new Address(dto.getTown(),dto.getStreetNumber(),dto.getStreetName(),dto.getPostalCode(),user);
+        addressRepository.save(address);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new MessageResponse("Address registered succesfully"));
@@ -56,6 +57,7 @@ public class AddressController {
 
     @DeleteMapping("/address/{id}")
     public ResponseEntity<?>deleteAddress(@PathVariable long id){
+        System.out.println("id in delete mapping"+id);
         addressRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
