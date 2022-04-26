@@ -1,6 +1,9 @@
 package fr.ktheo.back.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +25,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
+@JsonIdentityReference(alwaysAsId = true)
 public class User implements UserDetails {
 
     @Id
@@ -72,12 +76,35 @@ public class User implements UserDetails {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Auction>       auctions;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @OneToMany(fetch = FetchType.LAZY)
     private List<Bid>           bids;
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany
+    private List<Comment>       comments;
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(mappedBy = "owner")
+    private List<Transaction>   soldDeals;
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(mappedBy = "buyer")
+    private List<Transaction>   boughtDeals;
 
     @NonNull
     @OneToOne(cascade = CascadeType.ALL)
     private UserData userData;
+
+    public static User fromId(Long ownerId) {
+        User user = new User();
+        user.setId(ownerId);
+        return user;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

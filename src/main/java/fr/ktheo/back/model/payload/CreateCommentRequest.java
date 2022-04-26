@@ -1,10 +1,7 @@
 package fr.ktheo.back.model.payload;
 
 import fr.ktheo.back.model.Comment;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +12,13 @@ public class CreateCommentRequest {
 
     private long topic;
 
+    private String          content;
+
     public Comment toEntity() {
-        return new Comment();
+        Comment comment;
+
+        comment = new Comment();
+        comment.setContent(this.content);
+        return comment;
     }
 }

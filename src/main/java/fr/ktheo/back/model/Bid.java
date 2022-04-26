@@ -1,6 +1,9 @@
 package fr.ktheo.back.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +26,8 @@ public class Bid {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long                id;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne
     private User                bidder;
 
@@ -35,6 +40,8 @@ public class Bid {
     @Generated(GenerationTime.INSERT)
     private LocalDateTime       datetime;
 
-    @ManyToOne
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private Auction             auction;
 }

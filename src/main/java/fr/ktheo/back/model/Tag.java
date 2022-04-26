@@ -1,5 +1,8 @@
 package fr.ktheo.back.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +30,8 @@ public class Tag {
     @Column(name = "is_trigger")
     private boolean         isTrigger = false;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tags")
     private Set<Artwork> artworks;
 
