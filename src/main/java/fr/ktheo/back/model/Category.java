@@ -27,6 +27,7 @@ public class Role {
 @Table(name = "category")
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 public class Category {
@@ -37,5 +38,5 @@ public class Category {
     @Enumerated(EnumType.STRING)
     @Column(length = 30)
     @NonNull
-    private ECategory   eCategory;
+    private ECategory   category;
 }

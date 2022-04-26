@@ -1,5 +1,6 @@
 package fr.ktheo.back.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -13,36 +14,34 @@ import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name = "asset")
-@NoArgsConstructor
+@Table(name = "bid")
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-public class Asset {
+public class Bid {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long            id;
+    private Long                id;
 
-    @Column(unique=true)
-    private String          path;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @ManyToOne
+    private User                bidder;
 
-    @Column(name = "uploaded_on")
+    private double              bidAmount;
+
+    private String              currency;
+
+    @Column(name = "datetime")
     @ColumnDefault(value="CURRENT_TIMESTAMP")
     @Generated(GenerationTime.INSERT)
-    private LocalDateTime   uploadedOn;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uploader_id")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
-    private User            uploader;
+    private LocalDateTime       datetime;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "photos")
-    private Set<Artwork>    artworks;
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    private Auction             auction;
 }

@@ -63,6 +63,18 @@ public class WebSecurityConfig {
                     .antMatchers("/api/profil/**").permitAll()
                     .antMatchers("/api/user/**").permitAll()
                     .antMatchers("/api/{id}/**").permitAll()
+                    .antMatchers("/api/artwork/**").permitAll()
+                    .antMatchers("/api/report/**").permitAll()
+                    .antMatchers("/api/bid/**").permitAll()
+                    .antMatchers("/api/auction/**").permitAll()
+                    .antMatchers("/api/tag/**").permitAll()
+                    .antMatchers("/api/comment/**").permitAll()
+                    .antMatchers("/api/asset/**").permitAll()
+                    .antMatchers("/api/transaction/**").permitAll()
+                    .antMatchers("/api/status/**").permitAll()
+                    .antMatchers("/api/category/**").permitAll()
+                    .antMatchers("/api/comment/**").permitAll()
+                    //.antMatchers("/api/user/**").authenticated()
                     .anyRequest().authenticated();
             http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         }
