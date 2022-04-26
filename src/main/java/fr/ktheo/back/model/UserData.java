@@ -1,8 +1,10 @@
 package fr.ktheo.back.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 @Entity
@@ -19,6 +21,7 @@ public class UserData {
 
     private String locale;
 
+    @Past(message = "La date doit être antérieur à la date actuelle")
     private Date birthDate;
 
     @NonNull
@@ -28,10 +31,11 @@ public class UserData {
     private Date lastSeen;
 
     private String facebookLink;
-    private String twitterLiink;
+    private String twitterLink;
     private String instagramLink;
 
     @NonNull
     private boolean tutorialized;
+
 
 }

@@ -28,6 +28,6 @@ public class Tag {
     private boolean         isTrigger = false;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tags")
-    private List<Artwork>   artworks;
+    private Set<Artwork> artworks;
 
 }

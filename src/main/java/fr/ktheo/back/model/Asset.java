@@ -11,6 +11,7 @@ import org.hibernate.annotations.GenerationTime;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "asset")
@@ -31,9 +32,10 @@ public class Asset {
     @Generated(GenerationTime.INSERT)
     private LocalDateTime   uploadedOn;
 
-    /*
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "uploader_id")
     private User            uploader;
-     */
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "photos")
+    private Set<Artwork>    artworks;
 }
