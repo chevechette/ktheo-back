@@ -49,7 +49,7 @@ public class CreateArtworkRequest {
     @JoinTable(name = "artwork_tag",
             joinColumns = @JoinColumn(name = "artwork_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<Long> tags;
+    private Set<String> tags;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id")

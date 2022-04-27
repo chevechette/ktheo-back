@@ -1,6 +1,7 @@
 package fr.ktheo.back.model.payload;
 
 import fr.ktheo.back.model.Asset;
+import fr.ktheo.back.model.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +14,9 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CreateAssetRequest {
+public class AddAssetToArtWorkRequest {
     private String          path;
     private long            uploader;
-    private Set<Long> artworks;
 
     public Asset toEntity() {
         Asset asset;
