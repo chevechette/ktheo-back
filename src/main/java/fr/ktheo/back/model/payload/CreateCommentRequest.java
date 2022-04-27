@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 public class CreateCommentRequest {
-    private long user;
+    private long author;
 
     private long topic;
 

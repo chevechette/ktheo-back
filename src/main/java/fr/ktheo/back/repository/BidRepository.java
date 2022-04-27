@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface BidRepository extends CrudRepository<Bid, Long> {
-    Optional<Bid> findByAuction(Auction auction);
+    Optional<Iterable<Bid>> findAllByAuction(Auction auction);
 }

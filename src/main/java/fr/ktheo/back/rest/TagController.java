@@ -1,5 +1,7 @@
 package fr.ktheo.back.rest;
 
+import fr.ktheo.back.model.Artwork;
+import fr.ktheo.back.model.Auction;
 import fr.ktheo.back.model.Tag;
 import fr.ktheo.back.model.payload.CreateTagRequest;
 import fr.ktheo.back.model.payload.MessageResponse;
@@ -11,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 @RestController("TagController")
@@ -27,6 +30,14 @@ public class TagController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?>    getAllTags() {
         return ResponseEntity.ok().body(tagRepository.findAll());
+    }
+
+    @GetMapping(value = "/artwork/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?>    getAuctionAllBid(@PathVariable long id){
+        Artwork artwork;
+
+        artwork = artworkRepository.findById(id).orElseThrow(()->new EntityNotFoundException("id not found :"+id));
+        return ResponseEntity.ok().body(tagRepository.findByArtworksContains(artwork));
     }
 
     @GetMapping("/{id}")
