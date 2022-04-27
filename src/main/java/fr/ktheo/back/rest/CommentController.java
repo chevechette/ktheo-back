@@ -63,7 +63,7 @@ public class CommentController {
         User    usr;
 
         artwork = artworkRepository.findById(dto.getTopic()).orElseThrow(()->new EntityNotFoundException("id not found :"+dto.getTopic()));
-        usr = userRepository.findById(dto.getUser()).orElseThrow(()->new EntityNotFoundException("id not found :"+dto.getUser()));
+        usr = userRepository.findById(dto.getAuthor()).orElseThrow(()->new EntityNotFoundException("id not found :"+dto.getAuthor()));
         comment = dto.toEntity();
         comment.setAuthor(usr);
         comment.setTopic(artwork);
